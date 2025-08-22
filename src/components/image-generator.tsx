@@ -19,9 +19,9 @@ export function ImageGenerator() {
   const { toast } = useToast();
 
   const generateImage = useCallback(async (currentPrompt: string) => {
-    if (currentPrompt.length < 10) {
+    if (currentPrompt.length < 3) {
       setGeneratedImageUrl(null);
-      setError('Please enter a more detailed prompt (at least 10 characters).');
+      setError('Please enter a more detailed prompt (at least 3 characters).');
       return;
     }
 
@@ -53,22 +53,6 @@ export function ImageGenerator() {
 
   return (
     <div className="space-y-8">
-      <Card className="bg-card/50 border-border/50 backdrop-blur-sm shadow-lg">
-        <CardContent className="p-6">
-          <div className="space-y-2">
-             <label htmlFor="prompt-textarea" className="text-lg font-medium">Your Vision</label>
-             <Textarea
-                id="prompt-textarea"
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                placeholder="e.g., A cinematic shot of a raccoon astronaut on a neon-lit alien planet"
-                className="min-h-[100px] resize-none text-base bg-background/70"
-              />
-              {error && <p className="text-sm text-destructive">{error}</p>}
-          </div>
-        </CardContent>
-      </Card>
-      
       <Card className="border-dashed border-2 border-border/50 bg-transparent flex flex-col items-center justify-center p-12 text-center text-muted-foreground aspect-square relative shadow-inner">
         {isLoading && (
             <div className="absolute inset-0 bg-background/50 flex flex-col items-center justify-center z-10">
@@ -88,9 +72,25 @@ export function ImageGenerator() {
             <>
                 <ImageIcon className="h-16 w-16 mb-4" />
                 <h3 className="text-xl font-semibold text-foreground">Your Artwork Awaits</h3>
-                <p>Start typing your prompt above to generate an image.</p>
+                <p>Start typing your prompt below to generate an image.</p>
             </>
         )}
+      </Card>
+
+      <Card className="bg-card/50 border-border/50 backdrop-blur-sm shadow-lg">
+        <CardContent className="p-6">
+          <div className="space-y-2">
+             <label htmlFor="prompt-textarea" className="text-lg font-medium">Your Vision</label>
+             <Textarea
+                id="prompt-textarea"
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                placeholder="e.g., A cinematic shot of a raccoon astronaut on a neon-lit alien planet"
+                className="min-h-[100px] resize-none text-base bg-background/70"
+              />
+              {error && <p className="text-sm text-destructive">{error}</p>}
+          </div>
+        </CardContent>
       </Card>
     </div>
   );

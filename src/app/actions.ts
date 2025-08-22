@@ -8,14 +8,14 @@ export async function generateImageAction(prompt: string): Promise<{
   imageUrl: string | null;
   error: string | null;
 }> {
-  const promptSchema = z.string().min(10);
+  const promptSchema = z.string().min(3);
   const validation = promptSchema.safeParse(prompt);
 
   if (!validation.success) {
     return {
       success: false,
       imageUrl: null,
-      error: 'Please enter a more detailed prompt (at least 10 characters).',
+      error: 'Please enter a more detailed prompt (at least 3 characters).',
     };
   }
 
